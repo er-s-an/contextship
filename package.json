@@ -1,0 +1,33 @@
+{
+  "name": "contextship",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ContextShip — Forge Rovo agent that turns Jira ticket/PR/release context into actionable next steps.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "demo": "node demo/run-demo.mjs",
+    "demo:json": "node demo/run-demo.mjs --json",
+    "lint:forge": "forge lint",
+    "test": "node --test demo/delivery-context.test.js"
+  },
+  "dependencies": {
+    "@forge/api": "^7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/er-s-an/contextship.git"
+  },
+  "keywords": [
+    "atlassian",
+    "forge",
+    "rovo",
+    "jira",
+    "codegeist",
+    "agent"
+  ],
+  "license": "MIT",
+  "author": "Caesar (er-s-an)"
+}

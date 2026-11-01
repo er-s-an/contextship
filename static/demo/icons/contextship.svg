@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ContextShip">
+  <rect width="128" height="128" rx="28" fill="#0B1F33"/>
+  <path d="M24 78c18-28 38-42 62-46-8 14-10 28-6 42 12-4 24-2 34 8-22 6-40 4-56-6-8 12-18 20-34 26 4-10 6-18 0-24z" fill="#4CTBFB" fill="#4CC9F0"/>
+  <circle cx="86" cy="40" r="10" fill="#F72585"/>
+  <path d="M36 96h56" stroke="#E8F1F8" stroke-width="6" stroke-linecap="round"/>
+</svg>

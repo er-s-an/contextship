@@ -1,0 +1,184 @@
+{
+  "context": {
+    "key": "SHIP-42",
+    "summary": "Add checkout retry for flaky payment webhooks",
+    "description": "Payment webhooks occasionally fail with 503 from the provider.\nWe need idempotent retries with exponential backoff.\n\n## Acceptance criteria\n- Given a 503 response, when the worker retries, then the charge is not double-captured\n- Metrics emit retry_count and final_status\n- Feature flag `payments.retry_v2` can disable the path in production\n\nPR: https://github.com/acme/payments/pull/118",
+    "issueType": "Story",
+    "status": "In Review",
+    "priority": "High",
+    "assignee": "Alex Chen",
+    "reporter": "Sam Rivera",
+    "labels": [
+      "payments",
+      "release-candidate",
+      "production"
+    ],
+    "components": [
+      "checkout"
+    ],
+    "dueDate": "2026-12-01",
+    "parent": {
+      "key": "SHIP-40",
+      "summary": "Q4 payments reliability"
+    },
+    "subtasks": [
+      {
+        "key": "SHIP-43",
+        "summary": "Add retry metrics",
+        "status": "Done"
+      },
+      {
+        "key": "SHIP-44",
+        "summary": "QA webhook chaos test",
+        "status": "In Progress"
+      }
+    ],
+    "issueLinks": [
+      {
+        "relationship": "is blocked by",
+        "key": "SHIP-39",
+        "summary": "Provider sandbox credentials rotation",
+        "status": "In Progress"
+      },
+      {
+        "relationship": "relates to",
+        "key": "SHIP-21",
+        "summary": "Idempotency keys for charges",
+        "status": "Done"
+      }
+    ],
+    "issueLinksTruncated": false,
+    "pullRequests": [
+      {
+        "id": "118",
+        "title": "feat: webhook retry with backoff",
+        "status": "open",
+        "url": "https://github.com/acme/payments/pull/118",
+        "approved": false,
+        "checksPassing": true
+      }
+    ]
+  },
+  "comments": {
+    "issueKey": "SHIP-42",
+    "comments": [
+      {
+        "author": "Sam Rivera",
+        "created": "2026-11-01T08:00:00.000Z",
+        "updated": "2026-11-01T08:00:00.000Z",
+        "body": "Blocked on SHIP-39 — waiting on sandbox credentials before final QA."
+      },
+      {
+        "author": "Alex Chen",
+        "created": "2026-11-01T12:30:00.000Z",
+        "updated": "2026-11-01T12:30:00.000Z",
+        "body": "PR is up. Still need a second approval from payments-codeowners."
+      }
+    ],
+    "totalComments": 2,
+    "commentsTruncated": false
+  },
+  "report": {
+    "issueKey": "SHIP-42",
+    "summary": "Add checkout retry for flaky payment webhooks",
+    "status": "In Review",
+    "readinessScore": 26,
+    "readinessLabel": "Blocked",
+    "findings": [
+      {
+        "severity": "high",
+        "id": "blocked-by-links",
+        "finding": "Blocked by 1 open linked issue(s).",
+        "recommendation": "Resolve or detach: SHIP-39."
+      },
+      {
+        "severity": "high",
+        "id": "comment-blockers",
+        "finding": "1 recent comment(s) mention blockers or holds.",
+        "recommendation": "Confirm each blocker is cleared or explicitly deferred in the issue."
+      },
+      {
+        "severity": "high",
+        "id": "unapproved-prs",
+        "finding": "1 PR(s) lack approval.",
+        "recommendation": "Obtain required code-owner / reviewer approval."
+      },
+      {
+        "severity": "medium",
+        "id": "open-subtasks",
+        "finding": "1 open subtask(s) remain.",
+        "recommendation": "Close or re-scope: SHIP-44."
+      },
+      {
+        "severity": "medium",
+        "id": "open-prs",
+        "finding": "1 PR(s) still open.",
+        "recommendation": "Get review + merge or update the release cut."
+      }
+    ],
+    "nextSteps": [
+      {
+        "priority": "high",
+        "action": "Resolve or detach: SHIP-39.",
+        "relatedFinding": "blocked-by-links"
+      },
+      {
+        "priority": "high",
+        "action": "Confirm each blocker is cleared or explicitly deferred in the issue.",
+        "relatedFinding": "comment-blockers"
+      },
+      {
+        "priority": "high",
+        "action": "Obtain required code-owner / reviewer approval.",
+        "relatedFinding": "unapproved-prs"
+      },
+      {
+        "priority": "medium",
+        "action": "Close or re-scope: SHIP-44.",
+        "relatedFinding": "open-subtasks"
+      },
+      {
+        "priority": "medium",
+        "action": "Get review + merge or update the release cut.",
+        "relatedFinding": "open-prs"
+      },
+      {
+        "priority": "low",
+        "action": "After clearing high/medium items, post a short ship note (what changed, how to verify, rollback) and move to Done.",
+        "relatedFinding": null
+      }
+    ],
+    "releaseChecklist": [
+      {
+        "item": "Acceptance criteria complete",
+        "done": true
+      },
+      {
+        "item": "Owner assigned",
+        "done": true
+      },
+      {
+        "item": "Blocking links cleared",
+        "done": false
+      },
+      {
+        "item": "PR approved / merged (or N/A)",
+        "done": false
+      },
+      {
+        "item": "Test / QA evidence recorded",
+        "done": true
+      },
+      {
+        "item": "Rollback / flag plan noted",
+        "done": true
+      },
+      {
+        "item": "Open subtasks closed or re-scoped",
+        "done": false
+      }
+    ],
+    "generatedAt": "2026-11-01T18:39:10.373Z",
+    "markdown": "# ContextShip — SHIP-42\n\n**Add checkout retry for flaky payment webhooks**\nStatus: In Review · Readiness: **26/100 (Blocked)**\n\n## Findings\n- 🔴 **high** · Blocked by 1 open linked issue(s).\n  - Next: Resolve or detach: SHIP-39.\n- 🔴 **high** · 1 recent comment(s) mention blockers or holds.\n  - Next: Confirm each blocker is cleared or explicitly deferred in the issue.\n- 🔴 **high** · 1 PR(s) lack approval.\n  - Next: Obtain required code-owner / reviewer approval.\n- 🟡 **medium** · 1 open subtask(s) remain.\n  - Next: Close or re-scope: SHIP-44.\n- 🟡 **medium** · 1 PR(s) still open.\n  - Next: Get review + merge or update the release cut.\n\n## Release checklist\n- [x] Acceptance criteria complete\n- [x] Owner assigned\n- [ ] Blocking links cleared\n- [ ] PR approved / merged (or N/A)\n- [x] Test / QA evidence recorded\n- [x] Rollback / flag plan noted\n- [ ] Open subtasks closed or re-scoped\n\n## Executable next steps\n1. (high) Resolve or detach: SHIP-39.\n2. (high) Confirm each blocker is cleared or explicitly deferred in the issue.\n3. (high) Obtain required code-owner / reviewer approval.\n4. (medium) Close or re-scope: SHIP-44.\n5. (medium) Get review + merge or update the release cut.\n6. (low) After clearing high/medium items, post a short ship note (what changed, how to verify, rollback) and move to Done.\n\n_Generated by ContextShip · facts above come from issue fields/comments/PR signals; recommendations are advisory._"
+  }
+}

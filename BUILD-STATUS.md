@@ -1,0 +1,56 @@
+# ContextShip — Codegeist 2026 Build Status
+
+Updated: 2026-11-02 (Asia/Shanghai)
+
+## Contest gates
+
+| Gate | Status |
+| --- | --- |
+| Soft registered (`er-s-an`) | Done — https://codegeist2026.devpost.com/ |
+| Zero fee / no card | OK |
+| English-only materials | OK |
+| Devpost **Submit** | **NOT done** — wait for user 「交」 |
+| Demo video (review-clips) | Later — code path first |
+
+## Done
+
+- [x] Forge app scaffold under `/workspace/competitions/codegeist-contextship/`
+- [x] `manifest.yml` with `rovo:agent`, `rovo:skill`, `action` ×3, stretch `rovo:mcp`
+- [x] Skill `skills/delivery-context/` (`SKILL.md` + checklist/report refs)
+- [x] Actions: `get-delivery-context`, `get-issue-comments`, `build-release-checklist`
+- [x] Pure checklist engine `src/delivery-context.js` (shared)
+- [x] Local E2E demo: `npm run demo` (SHIP-42 blocked → checklist; SHIP-7 ship-ready)
+- [x] Tests: `npm test` (2 passing)
+- [x] README + LICENSE (MIT) + CONTRIBUTING + `.env.example`
+- [x] Static landing stub: `static/demo/index.html` (**not** deployed to Vercel)
+
+## Blockers (need user / Atlassian)
+
+1. **Atlassian account + `forge login`** — not available / Secret Service missing on this headless box (`forge lint` fails keytar). User must `forge login` on a machine with a secret store (or CI token), then `forge register` (replace placeholder app id), `forge deploy`, `forge install` (prefer `--demo-site` if free site lacks Rovo).
+2. **Rovo on free developer sites** — community reports Chat/agents may be missing; use Forge demo site (`forge site provision`).
+3. **GitHub remote** — local repo ready; push to `github.com/er-s-an/contextship` when created (no force-push).
+4. **Vercel demo landing** — **not live**. Static files exist locally only; videos later via https://review-clips.vercel.app.
+
+## How to run (now)
+
+```bash
+cd /workspace/competitions/codegeist-contextship
+npm install
+npm test
+npm run demo
+```
+
+## Next steps
+
+1. User: Atlassian `forge login` → `forge register` → deploy/install on demo site.
+2. Capture ≤5 min demo via review-clips once cloud agent path works.
+3. Optional: Confluence enrichment via existing `read:confluence-content.summary` scope; Teamwork Graph stretch.
+4. Submit on Devpost **only** after 「交」.
+
+## Success criteria checklist
+
+1. Scaffolded Forge app + install/share instructions — **yes** (README; share link after deploy)
+2. Working local/demo path ticket → checklist — **yes** (`npm run demo`)
+3. English README — **yes**
+4. BUILD-STATUS.md — **this file**
+5. No Devpost Submit — **honored**

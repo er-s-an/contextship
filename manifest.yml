@@ -1,0 +1,116 @@
+modules:
+  rovo:agent:
+    - key: contextship-agent
+      name: ContextShip
+      description: Turns ticket, PR, and release context into a concrete next-step checklist so software teams ship with confidence.
+      icon: resource:contextship-static;icons/contextship.svg
+      prompt: resource:agent-prompt;prompts/agent-prompt.txt
+      conversationStarters:
+        - What is blocking this ticket from shipping?
+        - Build a release checklist for SHIP-42
+        - What should I do next on this issue?
+      skills:
+        - delivery-context-review
+      actions:
+        - get-delivery-context
+        - get-issue-comments
+        - build-release-checklist
+
+  rovo:skill:
+    - key: delivery-context-review
+      source:
+        dir: skills/delivery-context
+      dependencies:
+        tools:
+          - get-delivery-context
+          - get-issue-comments
+          - build-release-checklist
+
+  rovo:mcp:
+    - key: contextship-mcp
+      name: ContextShip delivery tools
+      tools:
+        - get-delivery-context
+        - get-issue-comments
+        - build-release-checklist
+
+  action:
+    - key: get-delivery-context
+      name: Get delivery context
+      function: get-delivery-context-fn
+      actionVerb: GET
+      description: >
+        Retrieves Jira delivery context for an issue — summary, status, priority,
+        links, labels, components, subtasks, and development/PR signals when present.
+        Use before building a release or next-step checklist.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: false
+          description: Jira issue key such as SHIP-42. Omit when reviewing the current issue.
+
+    - key: get-issue-comments
+      name: Get issue comments
+      function: get-issue-comments-fn
+      actionVerb: GET
+      description: >
+        Retrieves recent issue comments to surface open questions, decisions,
+        blockers, and release notes discussion.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: false
+          description: Jira issue key such as SHIP-42. Omit when reviewing the current issue.
+
+    - key: build-release-checklist
+      name: Build release checklist
+      function: build-release-checklist-fn
+      actionVerb: GET
+      description: >
+        Builds a risk-ranked release and next-step checklist from delivery context
+        JSON (issue fields, links, comments, PR signals). Prefer calling
+        get-delivery-context and get-issue-comments first, then pass their outputs.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: false
+          description: Issue key for the checklist header.
+        deliveryContextJson:
+          title: Delivery context JSON
+          type: string
+          required: false
+          description: JSON string from get-delivery-context. If omitted, the action will fetch context itself when issueKey or issue context is available.
+        commentsJson:
+          title: Comments JSON
+          type: string
+          required: false
+          description: Optional JSON string from get-issue-comments to enrich blocker detection.
+
+  function:
+    - key: get-delivery-context-fn
+      handler: index.getDeliveryContext
+    - key: get-issue-comments-fn
+      handler: index.getIssueComments
+    - key: build-release-checklist-fn
+      handler: index.buildReleaseChecklist
+
+app:
+  id: ari:cloud:ecosystem::app/00000000-0000-4000-8000-000000000001
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+
+permissions:
+  scopes:
+    - read:jira-work
+    - read:confluence-content.summary
+
+resources:
+  - key: contextship-static
+    path: static/demo
+  - key: agent-prompt
+    path: resources/agent

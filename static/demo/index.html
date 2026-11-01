@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ContextShip — Codegeist 2026</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; }
+    body { margin: 0; background: #0b1f33; color: #e8f1f8; }
+    main { max-width: 880px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+    .tag { display: inline-block; background: #142a42; color: #4cc9f0; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.85rem; }
+    .card { background: #12263a; border: 1px solid #1e3a55; border-radius: 16px; padding: 1.25rem; margin-top: 1.25rem; }
+    pre { white-space: pre-wrap; word-break: break-word; background: #0a1828; padding: 1rem; border-radius: 12px; overflow: auto; }
+    a { color: #4cc9f0; }
+    .muted { color: #9bb0c3; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="tag">Codegeist 2026 · Apps for Software Teams · Best Agents</span>
+    <h1>ContextShip</h1>
+    <p class="muted">Forge-installable Rovo agent: ticket / PR / release context → executable next steps.</p>
+    <div class="card">
+      <h2>Local demo (no Atlassian login)</h2>
+      <pre><code>cd contextship
+npm install
+npm run demo          # SHIP-42 → checklist
+npm run demo SHIP-7   # healthier docs-only path
+npm test</code></pre>
+    </div>
+    <div class="card">
+      <h2>Sample story — SHIP-42</h2>
+      <p class="muted">Flaky payment webhook retries. Open PR without approval, blocked by SHIP-39, QA subtask still in progress.</p>
+      <pre id="out">Run <code>npm run demo</code> then open the generated fixture, or use the embedded snapshot below once generated.</pre>
+    </div>
+    <div class="card">
+      <h2>Forge install (needs Atlassian account)</h2>
+      <pre><code>npm install -g @forge/cli@latest
+forge login
+forge register   # replaces placeholder app id
+forge deploy
+forge install    # or: forge install --demo-site  # Rovo-capable demo site</code></pre>
+      <p class="muted">Do not Submit on Devpost until the owner says 「交」. Soft is already registered as <code>er-s-an</code>.</p>
+    </div>
+  </main>
+  <script type="module">
+    const el = document.getElementById('out');
+    try {
+      const res = await fetch('./sample-checklist.json');
+      if (!res.ok) throw new Error('fixture missing');
+      const data = await res.json();
+      el.textContent = data.report?.markdown
+        || JSON.stringify(data.report, null, 2);
+    } catch {
+      el.textContent = 'Fixture not generated yet. From repo root: npm run demo';
+    }
+  </script>
+</body>
+</html>
