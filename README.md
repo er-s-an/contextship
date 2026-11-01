@@ -1,21 +1,21 @@
 # ContextShip
 
-**Forge-installable Rovo agent** that turns Jira ticket / PR / release context into an **executable next-step checklist**.
+**Forge-installable Rovo agent** that turns Jira ticket, pull request, and release context into an **executable next-step checklist**.
 
-Built for [Codegeist 2026](https://codegeist2026.devpost.com/) — category **Apps for Software Teams**, aiming **Best Agents** (`rovo:agent` + `rovo:skill` + `action` + stretch `rovo:mcp`).
+Built for [Codegeist 2026](https://codegeist2026.devpost.com/) — category **Apps for Software Teams**, aiming for **Best Agents** (`rovo:agent` + `rovo:skill` + `action`, plus a stretch `rovo:mcp` server).
 
-> Soft registration: Devpost user `er-s-an`. **Do not Submit** without explicit owner approval (「交」).
+> Devpost account: `er-s-an` (already registered). **Do not Submit** without explicit owner approval (「交」).
 
 ## Problem
 
-Software teams drown in Jira/Confluence context and still hand-stitch PR, acceptance, and release checklists. Generic GPT shells do not install into Atlassian workflows. ContextShip is an **assignable-style Rovo agent** (installable via Forge) that behaves like a Cursor/Linear delivery agent: **context in → concrete next action out**.
+Software teams already hold ticket, pull request, and release context in Jira, and still assemble the ship checklist by hand. ContextShip installs into that workflow as an assignable Rovo agent: **context in, concrete next action out**.
 
 ## What it does
 
-1. Reads delivery context for a Jira issue (fields, links, subtasks, labels, PR signals).
-2. Reads recent comments for blockers / decisions.
-3. Builds a **risk-ranked readiness score**, release checklist, and ordered next steps.
-4. Exposes the same tools via **`rovo:mcp`** so other custom agents can call them.
+1. Reads delivery context for a Jira issue (fields, links, subtasks, labels, and pull-request signals).
+2. Reads recent comments for blockers and decisions.
+3. Builds a **risk-ranked readiness score**, a release checklist, and ordered next steps.
+4. Exposes the same tools through **`rovo:mcp`** so other custom agents can call them.
 
 ## Stack
 
@@ -43,21 +43,25 @@ demo/run-demo.mjs            # End-to-end CLI story
 static/demo/                 # Icon + lightweight landing
 ```
 
+The `app.id` in `manifest.yml` is a placeholder (`ari:cloud:ecosystem::app/00000000-0000-4000-8000-000000000001`). **`forge register` replaces it** with the id Atlassian assigns. Leave that placeholder in the repo until the owner registers the app.
+
 ## Quick start — local demo (no Atlassian account)
 
 ```bash
 npm install
 npm test
-npm run demo          # SHIP-42 → blocked / needs-work checklist
+npm run demo          # SHIP-42 → Blocked checklist
 npm run demo -- SHIP-7
 npm run demo:json     # machine-readable snapshot
 ```
 
-Expected story for **SHIP-42**: open PR without approval, blocked by **SHIP-39**, QA subtask still in progress → high/medium findings and ordered next steps.
+**SHIP-42** is in review: the pull request is open and unapproved, the issue is blocked by **SHIP-39**, and the QA subtask is still in progress. The report lists high and medium findings, then ordered next steps. **SHIP-7** is a merged docs-only task and scores as ship-ready.
+
+No secrets or `.env` file are required. See [`.env.example`](.env.example).
 
 ## Forge install (Atlassian account required)
 
-Prerequisites: Node.js **≥ 22.23.4** (Forge CLI 15.x), Atlassian account, Jira Cloud site with **Rovo** (use a [Forge demo site](https://developer.atlassian.com/platform/forge/) if your free dev site lacks Rovo Chat).
+Prerequisites: Node.js **≥ 22.23.4** (Forge CLI 15.x), an Atlassian account, and a Jira Cloud site with **Rovo**. When a free developer site has no Rovo Chat, use a [Forge demo site](https://developer.atlassian.com/platform/forge/provision-a-demo-development-site/). The local demo above runs without that account. Register, deploy, and demo-site steps are also in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
 npm install -g @forge/cli@latest
@@ -66,12 +70,14 @@ forge register          # replaces the placeholder app id in manifest.yml
 forge lint
 forge deploy
 forge install           # select Jira
-# If Rovo is missing on the free site:
+# When the free site has no Rovo, deploy first, then:
 forge site provision
 forge install --demo-site
 ```
 
-After install, open **Rovo Chat** → select **ContextShip**, open a Jira issue, and try:
+`forge register` writes a new `app.id` into `manifest.yml` and sets the logged-in Atlassian account as the owner. Run it once, on the account that will own the contest app. Running it again issues another id and disconnects the previous environments.
+
+After install, open **Rovo Chat**, select **ContextShip**, open a Jira issue, and try:
 
 - “What is blocking this ticket from shipping?”
 - “Build a release checklist for this issue”
@@ -79,7 +85,7 @@ After install, open **Rovo Chat** → select **ContextShip**, open a Jira issue,
 
 ### Share / judge install
 
-Judges need an installation link from a deployed Forge app (`forge install` / distribution link from developer console). Until `forge register` + deploy succeed under the contest Atlassian account, use the **local demo** above for the end-to-end story.
+Judges install from the distribution link of a deployed Forge app. Until the contest Atlassian account has run `forge register` and `forge deploy`, use the **local demo** for the end-to-end story.
 
 ## Permissions
 
@@ -88,7 +94,7 @@ Read-only scopes:
 - `read:jira-work`
 - `read:confluence-content.summary` (reserved for follow-on Confluence enrichment)
 
-The agent **does not** create, edit, assign, comment, or transition issues.
+The agent only reads issues. It does not create, edit, assign, comment, or transition them.
 
 ## Demo video
 

@@ -1,5 +1,5 @@
 ---
-name: delivery-context-review
+name: delivery-context
 description: Turn a Jira ticket's delivery context (fields, comments, linked work, PR signals) into a risk-ranked release checklist and executable next steps.
 compatibility: Requires Jira Cloud, Rovo, and permission to browse the requested issue and its comments.
 license: MIT

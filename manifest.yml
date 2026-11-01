@@ -2,7 +2,8 @@ modules:
   rovo:agent:
     - key: contextship-agent
       name: ContextShip
-      description: Turns ticket, PR, and release context into a concrete next-step checklist so software teams ship with confidence.
+      description: Turns ticket, PR, and release context into a concrete next-step
+        checklist so software teams ship with confidence.
       icon: resource:contextship-static;icons/contextship.svg
       prompt: resource:agent-prompt;prompts/agent-prompt.txt
       conversationStarters:
@@ -10,14 +11,14 @@ modules:
         - Build a release checklist for SHIP-42
         - What should I do next on this issue?
       skills:
-        - delivery-context-review
+        - delivery-context
       actions:
         - get-delivery-context
         - get-issue-comments
         - build-release-checklist
 
   rovo:skill:
-    - key: delivery-context-review
+    - key: delivery-context
       source:
         dir: skills/delivery-context
       dependencies:
@@ -40,15 +41,17 @@ modules:
       function: get-delivery-context-fn
       actionVerb: GET
       description: >
-        Retrieves Jira delivery context for an issue — summary, status, priority,
-        links, labels, components, subtasks, and development/PR signals when present.
-        Use before building a release or next-step checklist.
+        Retrieves Jira delivery context for an issue — summary, status,
+        priority, links, labels, components, subtasks, and development/PR
+        signals when present. Use before building a release or next-step
+        checklist.
       inputs:
         issueKey:
           title: Issue key
           type: string
           required: false
-          description: Jira issue key such as SHIP-42. Omit when reviewing the current issue.
+          description: Jira issue key such as SHIP-42. Omit when reviewing the current
+            issue.
 
     - key: get-issue-comments
       name: Get issue comments
@@ -62,16 +65,18 @@ modules:
           title: Issue key
           type: string
           required: false
-          description: Jira issue key such as SHIP-42. Omit when reviewing the current issue.
+          description: Jira issue key such as SHIP-42. Omit when reviewing the current
+            issue.
 
     - key: build-release-checklist
       name: Build release checklist
-      function: build-release-checklist-fn
+      function: build-checklist-fn
       actionVerb: GET
       description: >
-        Builds a risk-ranked release and next-step checklist from delivery context
-        JSON (issue fields, links, comments, PR signals). Prefer calling
-        get-delivery-context and get-issue-comments first, then pass their outputs.
+        Builds a risk-ranked release and next-step checklist from delivery
+        context JSON (issue fields, links, comments, PR signals). Prefer calling
+        get-delivery-context and get-issue-comments first, then pass their
+        outputs.
       inputs:
         issueKey:
           title: Issue key
@@ -82,23 +87,25 @@ modules:
           title: Delivery context JSON
           type: string
           required: false
-          description: JSON string from get-delivery-context. If omitted, the action will fetch context itself when issueKey or issue context is available.
+          description: JSON string from get-delivery-context. If omitted, the action will
+            fetch context itself when issueKey or issue context is available.
         commentsJson:
           title: Comments JSON
           type: string
           required: false
-          description: Optional JSON string from get-issue-comments to enrich blocker detection.
+          description: Optional JSON string from get-issue-comments to enrich blocker
+            detection.
 
   function:
     - key: get-delivery-context-fn
       handler: index.getDeliveryContext
     - key: get-issue-comments-fn
       handler: index.getIssueComments
-    - key: build-release-checklist-fn
+    - key: build-checklist-fn
       handler: index.buildReleaseChecklist
 
 app:
-  id: ari:cloud:ecosystem::app/00000000-0000-4000-8000-000000000001
+  id: ari:cloud:ecosystem::app/815e22c9-8885-4360-ad85-5c33aa609e60
   runtime:
     name: nodejs24.x
     memoryMB: 256

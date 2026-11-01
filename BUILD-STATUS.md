@@ -1,6 +1,8 @@
 # ContextShip — Codegeist 2026 Build Status
 
-Updated: 2026-11-02 ~02:42 Asia/Shanghai
+Updated: 2026-11-02 ~02:59 Asia/Shanghai
+
+Skills loaded: remotion, remotion-best-practices, remotion-markup, remotion-create (explainer LIVE); design-taste-frontend pending landing polish if needed.
 
 ## Contest gates
 
@@ -10,7 +12,22 @@ Updated: 2026-11-02 ~02:42 Asia/Shanghai
 | Zero fee / no card | OK |
 | English-only materials | OK |
 | Devpost **Submit** | **NOT done** — wait for user 「交」 |
-| Demo video (review-clips) | Later — code path first |
+| Demo video (review-clips) | **LIVE** https://review-clips.vercel.app/v/contextship-explainer (~106s Remotion) |
+
+## Forge cloud (2026-11-02)
+
+| Item | Value |
+| --- | --- |
+| whoami | Caesar (`er-s-an@mail.grokbot.com`) |
+| Developer Space | ContextShip (`c95f91db-4ca1-4df3-81d8-a47293b3f859`) |
+| App id | `ari:cloud:ecosystem::app/815e22c9-8885-4360-ad85-5c33aa609e60` |
+| Demo site | https://one-atlas-fyci.atlassian.net (active, expires 2027-01-30) |
+| Deploy | **OK** — development env |
+| Install | **OK** — Jira + Confluence on demo site (dev env, up-to-date) |
+| Auth path | Headless `FORGE_EMAIL` + `FORGE_API_TOKEN` (no `forge login` / keytar) |
+| Lint fixes for deploy | Skill frontmatter `name` → `delivery-context`; function key → `build-checklist-fn` (≤23 chars) |
+
+Console: https://developer.atlassian.com/console/myapps/815e22c9-8885-4360-ad85-5c33aa609e60/monitoring/installations
 
 ## Done
 
@@ -25,15 +42,18 @@ Updated: 2026-11-02 ~02:42 Asia/Shanghai
 - [x] Static landing: `static/demo/index.html` + `sample-checklist.json`
 - [x] Public GitHub repo: https://github.com/er-s-an/contextship
 - [x] **Vercel demo landing live:** https://contextship.vercel.app (CLI deploy, project `contextship`; `vercel.json` → `static/demo`)
+- [x] **EN Remotion explainer:** https://review-clips.vercel.app/v/contextship-explainer (Skills loaded: remotion, remotion-best-practices, remotion-markup, remotion-create)
+- [x] **Forge register + deploy (development) + install on demo site** (Jira + Confluence)
 
-## Blockers (need user / Atlassian)
+## Remaining / optional
 
-1. **Atlassian account + `forge login`** — not available / Secret Service missing on this headless box (`forge lint` fails keytar). User must `forge login` on a machine with a secret store (or CI token), then `forge register` (replace placeholder app id), `forge deploy`, `forge install` (prefer `--demo-site` if free site lacks Rovo).
-2. **Rovo on free developer sites** — community reports Chat/agents may be missing; use Forge demo site (`forge site provision`).
-3. **GitHub ↔ Vercel auto-link** — CLI create succeeded; GitHub Login Connection missing on the Vercel team (`Failed to link er-s-an/contextship`). Redeploys via `npx vercel deploy --prod` from this box still work. Optional: connect GitHub in Vercel dashboard for push-to-deploy.
-4. Videos later via https://review-clips.vercel.app.
+1. Smoke-test Rovo agent on demo site (Chat may still vary on free/demo tenancies).
+2. Optional: `forge deploy -e production` + install production if contest judges need prod env.
+3. Optional: Confluence enrichment via `read:confluence-content.summary`; Teamwork Graph stretch.
+4. Optional: Vercel ↔ GitHub Login Connection for push-to-deploy (CLI redeploy still works).
+5. Submit on Devpost **only** after 「交」.
 
-## How to run (now)
+## How to run (local)
 
 ```bash
 cd /workspace/competitions/codegeist-contextship
@@ -44,15 +64,7 @@ npm run demo
 
 Live landing: https://contextship.vercel.app
 
-## Next steps
+## Headless Forge auth (box)
 
-1. User: Atlassian `forge login` → `forge register` → deploy/install on demo site.
-2. Capture ≤5 min demo via review-clips once cloud agent path works.
-3. Optional: Confluence enrichment via existing `read:confluence-content.summary` scope; Teamwork Graph stretch.
-4. Optional: add Vercel ↔ GitHub Login Connection for auto deploys.
-5. Submit on Devpost **only** after 「交」.
-
-## Forge auth path (2026-11-02)
-
-- Headless box: skip `forge login` keytar; use `FORGE_EMAIL` + `FORGE_API_TOKEN` env vars.
-- Creating Atlassian account with `er-s-an@mail.grokbot.com` for API token (self-register authorized).
+- Skip `forge login` (keytar/Secret Service broken headless).
+- Use env: `FORGE_EMAIL=er-s-an@mail.grokbot.com` and `FORGE_API_TOKEN` from `/workspace/contest-regs/atlassian-forge-api-token.txt` (mode 600; never commit/print token).
