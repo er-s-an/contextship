@@ -1,6 +1,6 @@
 # ContextShip — Codegeist 2026 Build Status
 
-Updated: 2026-11-02 (Asia/Shanghai)
+Updated: 2026-11-02 ~02:42 Asia/Shanghai
 
 ## Contest gates
 
@@ -22,15 +22,16 @@ Updated: 2026-11-02 (Asia/Shanghai)
 - [x] Local E2E demo: `npm run demo` (SHIP-42 blocked → checklist; SHIP-7 ship-ready)
 - [x] Tests: `npm test` (2 passing)
 - [x] README + LICENSE (MIT) + CONTRIBUTING + `.env.example`
-- [x] Static landing stub: `static/demo/index.html` (**not** deployed to Vercel)
+- [x] Static landing: `static/demo/index.html` + `sample-checklist.json`
 - [x] Public GitHub repo: https://github.com/er-s-an/contextship
+- [x] **Vercel demo landing live:** https://contextship.vercel.app (CLI deploy, project `contextship`; `vercel.json` → `static/demo`)
 
 ## Blockers (need user / Atlassian)
 
 1. **Atlassian account + `forge login`** — not available / Secret Service missing on this headless box (`forge lint` fails keytar). User must `forge login` on a machine with a secret store (or CI token), then `forge register` (replace placeholder app id), `forge deploy`, `forge install` (prefer `--demo-site` if free site lacks Rovo).
 2. **Rovo on free developer sites** — community reports Chat/agents may be missing; use Forge demo site (`forge site provision`).
-3. **GitHub remote** — **pushed** https://github.com/er-s-an/contextship (`main`, no force-push).
-4. **Vercel demo landing** — **not live**. Static files exist locally only; videos later via https://review-clips.vercel.app.
+3. **GitHub ↔ Vercel auto-link** — CLI create succeeded; GitHub Login Connection missing on the Vercel team (`Failed to link er-s-an/contextship`). Redeploys via `npx vercel deploy --prod` from this box still work. Optional: connect GitHub in Vercel dashboard for push-to-deploy.
+4. Videos later via https://review-clips.vercel.app.
 
 ## How to run (now)
 
@@ -41,17 +42,12 @@ npm test
 npm run demo
 ```
 
+Live landing: https://contextship.vercel.app
+
 ## Next steps
 
 1. User: Atlassian `forge login` → `forge register` → deploy/install on demo site.
 2. Capture ≤5 min demo via review-clips once cloud agent path works.
 3. Optional: Confluence enrichment via existing `read:confluence-content.summary` scope; Teamwork Graph stretch.
-4. Submit on Devpost **only** after 「交」.
-
-## Success criteria checklist
-
-1. Scaffolded Forge app + install/share instructions — **yes** (README; share link after deploy)
-2. Working local/demo path ticket → checklist — **yes** (`npm run demo`)
-3. English README — **yes**
-4. BUILD-STATUS.md — **this file**
-5. No Devpost Submit — **honored**
+4. Optional: add Vercel ↔ GitHub Login Connection for auto deploys.
+5. Submit on Devpost **only** after 「交」.

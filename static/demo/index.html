@@ -3,46 +3,102 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ContextShip — Forge Rovo agent that turns Jira ticket, PR, and release context into an executable ship checklist." />
   <title>ContextShip — Codegeist 2026</title>
   <style>
     :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; }
-    body { margin: 0; background: #0b1f33; color: #e8f1f8; }
+    body { margin: 0; background: #0b1f33; color: #e8f1f8; line-height: 1.55; }
     main { max-width: 880px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
-    h1 { font-size: 2rem; margin: 0 0 0.5rem; }
-    .tag { display: inline-block; background: #142a42; color: #4cc9f0; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.85rem; }
-    .card { background: #12263a; border: 1px solid #1e3a55; border-radius: 16px; padding: 1.25rem; margin-top: 1.25rem; }
-    pre { white-space: pre-wrap; word-break: break-word; background: #0a1828; padding: 1rem; border-radius: 12px; overflow: auto; }
+    h1 { font-size: 2.15rem; margin: 0.6rem 0 0.4rem; letter-spacing: -0.02em; }
+    h2 { font-size: 1.15rem; margin: 0 0 0.65rem; }
+    .tag { display: inline-block; background: #142a42; color: #4cc9f0; padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.85rem; }
+    .card { background: #12263a; border: 1px solid #1e3a55; border-radius: 16px; padding: 1.25rem 1.35rem; margin-top: 1.15rem; }
+    .flow { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+    .flow li { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.75rem; align-items: start; }
+    .step { width: 2.2rem; height: 2.2rem; border-radius: 999px; background: #1a3a55; color: #4cc9f0; display: grid; place-items: center; font-weight: 700; font-size: 0.9rem; }
+    pre { white-space: pre-wrap; word-break: break-word; background: #0a1828; padding: 1rem; border-radius: 12px; overflow: auto; margin: 0.75rem 0 0; }
     a { color: #4cc9f0; }
     .muted { color: #9bb0c3; }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+    .btn { display: inline-block; text-decoration: none; padding: 0.65rem 1rem; border-radius: 10px; font-weight: 600; border: 1px solid #2a4d6e; }
+    .btn-primary { background: #4cc9f0; color: #0b1f33; border-color: #4cc9f0; }
+    .btn-ghost { background: transparent; color: #e8f1f8; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
   </style>
 </head>
 <body>
   <main>
     <span class="tag">Codegeist 2026 · Apps for Software Teams · Best Agents</span>
     <h1>ContextShip</h1>
-    <p class="muted">Forge-installable Rovo agent: ticket / PR / release context → executable next steps.</p>
+    <p class="muted">A Forge-installable Rovo agent that turns ticket / PR / release context into executable next steps — so “almost ready to ship” becomes a clear checklist.</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/er-s-an/contextship">View on GitHub</a>
+      <a class="btn btn-ghost" href="#sample">See sample checklist</a>
+    </div>
+
     <div class="card">
-      <h2>Local demo (no Atlassian login)</h2>
-      <pre><code>cd contextship
+      <h2>The problem</h2>
+      <p class="muted" style="margin:0">
+        Shipping software is rarely blocked by a single missing field. It is blocked by scattered context:
+        an open PR without approval, a blocker still In Progress, a QA subtask unfinished, and comments
+        that only half the team has read. People waste time reconstructing “what is left?” instead of executing.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>How ContextShip helps</h2>
+      <ol class="flow">
+        <li>
+          <span class="step">1</span>
+          <div>
+            <strong>Install the Forge app</strong>
+            <div class="muted">Rovo agent + skills + actions land in your Atlassian site.</div>
+          </div>
+        </li>
+        <li>
+          <span class="step">2</span>
+          <div>
+            <strong>Ask about a ticket</strong>
+            <div class="muted">Agent pulls issue fields, links, comments, and linked PRs via Forge actions.</div>
+          </div>
+        </li>
+        <li>
+          <span class="step">3</span>
+          <div>
+            <strong>Get a ship checklist</strong>
+            <div class="muted">Blocked / ready signals become concrete next steps — not another wall of text.</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card" id="sample">
+      <h2>Sample story — SHIP-42</h2>
+      <p class="muted" style="margin-top:0">
+        Flaky payment webhook retries. Open PR without approval, blocked by SHIP-39, QA subtask still in progress.
+      </p>
+      <pre id="out">Loading sample checklist…</pre>
+    </div>
+
+    <div class="card">
+      <h2>Try locally (no Atlassian login)</h2>
+      <pre><code>git clone https://github.com/er-s-an/contextship.git
+cd contextship
 npm install
-npm run demo          # SHIP-42 → checklist
+npm run demo          # SHIP-42 → blocked checklist
 npm run demo SHIP-7   # healthier docs-only path
 npm test</code></pre>
     </div>
-    <div class="card">
-      <h2>Sample story — SHIP-42</h2>
-      <p class="muted">Flaky payment webhook retries. Open PR without approval, blocked by SHIP-39, QA subtask still in progress.</p>
-      <pre id="out">Run <code>npm run demo</code> then open the generated fixture, or use the embedded snapshot below once generated.</pre>
-    </div>
+
     <div class="card">
       <h2>Forge install (needs Atlassian account)</h2>
       <pre><code>npm install -g @forge/cli@latest
 forge login
 forge register   # replaces placeholder app id
 forge deploy
-forge install    # or: forge install --demo-site  # Rovo-capable demo site</code></pre>
-      <p class="muted">Do not Submit on Devpost until the owner says 「交」. Soft is already registered as <code>er-s-an</code>.</p>
+forge install    # or: forge install --demo-site</code></pre>
+      <p class="muted" style="margin-bottom:0">Source and docs: <a href="https://github.com/er-s-an/contextship">github.com/er-s-an/contextship</a></p>
     </div>
   </main>
   <script type="module">
