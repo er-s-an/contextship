@@ -23,12 +23,13 @@ Updated: 2026-11-02 (Asia/Shanghai)
 - [x] Tests: `npm test` (2 passing)
 - [x] README + LICENSE (MIT) + CONTRIBUTING + `.env.example`
 - [x] Static landing stub: `static/demo/index.html` (**not** deployed to Vercel)
+- [x] Public GitHub repo: https://github.com/er-s-an/contextship
 
 ## Blockers (need user / Atlassian)
 
 1. **Atlassian account + `forge login`** — not available / Secret Service missing on this headless box (`forge lint` fails keytar). User must `forge login` on a machine with a secret store (or CI token), then `forge register` (replace placeholder app id), `forge deploy`, `forge install` (prefer `--demo-site` if free site lacks Rovo).
 2. **Rovo on free developer sites** — community reports Chat/agents may be missing; use Forge demo site (`forge site provision`).
-3. **GitHub remote** — local repo ready; push to `github.com/er-s-an/contextship` when created (no force-push).
+3. **GitHub remote** — **pushed** https://github.com/er-s-an/contextship (`main`, no force-push).
 4. **Vercel demo landing** — **not live**. Static files exist locally only; videos later via https://review-clips.vercel.app.
 
 ## How to run (now)
