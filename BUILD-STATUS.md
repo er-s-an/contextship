@@ -51,3 +51,8 @@ Live landing: https://contextship.vercel.app
 3. Optional: Confluence enrichment via existing `read:confluence-content.summary` scope; Teamwork Graph stretch.
 4. Optional: add Vercel ↔ GitHub Login Connection for auto deploys.
 5. Submit on Devpost **only** after 「交」.
+
+## Forge auth path (2026-11-02)
+
+- Headless box: skip `forge login` keytar; use `FORGE_EMAIL` + `FORGE_API_TOKEN` env vars.
+- Creating Atlassian account with `er-s-an@mail.grokbot.com` for API token (self-register authorized).
